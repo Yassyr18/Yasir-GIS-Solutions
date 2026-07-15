@@ -193,23 +193,29 @@ const portfolioGroups: ProjectGroup[] = [
       {
         id: "heavy-metals",
         title: "Heavy Metal & Geochemical Distribution Maps",
-        subtitle: "66 maps from 6 studies",
+        subtitle: "12 representative maps from 6 studies",
         description:
           "Spatial distribution maps showing soil and water concentrations of various heavy metals and geochemical elements — produced for professors and researchers across multiple studies.",
         totalMapCount: 66,
         isSampled: true,
-        sampleNote: "Showing 6 representative samples from 66 maps across 6 studies. Contact for the full portfolio.",
+        sampleNote: "Showing 12 representative samples from 66 maps across 6 studies — one per element. Contact for the full portfolio.",
         elements: [
           "Arsenic", "Chromium", "Lead", "Copper", "Zinc", "Cadmium",
           "Iron", "Manganese", "Nickel", "Mercury", "Vanadium", "Titanium",
         ],
         maps: [
-          { id: "hm1", filename: "Sample — Arsenic Distribution", caption: "Arsenic concentration in soil — spatial distribution" },
-          { id: "hm2", filename: "Sample — Lead Distribution", caption: "Lead spatial distribution in study area" },
-          { id: "hm3", filename: "Sample — Chromium Distribution", caption: "Chromium concentration mapping" },
-          { id: "hm4", filename: "Sample — Copper Distribution", caption: "Copper spatial distribution in soil" },
-          { id: "hm5", filename: "Sample — Zinc Distribution", caption: "Zinc concentration in study area" },
-          { id: "hm6", filename: "Sample — Multi-element Overlay", caption: "Multi-element geochemical overlay map" },
+          { id: "hm1", filename: "Arsenic Distribution.jpg", caption: "Arsenic (As) concentration in soil — spatial distribution" },
+          { id: "hm2", filename: "Chromium Distribution.jpg", caption: "Chromium (Cr) spatial distribution in study area" },
+          { id: "hm3", filename: "Lead Distribution.jpg", caption: "Lead (Pb) concentration mapping across sample sites" },
+          { id: "hm4", filename: "Copper Distribution.jpg", caption: "Copper (Cu) spatial distribution in soil" },
+          { id: "hm5", filename: "Zinc Distribution.jpg", caption: "Zinc (Zn) concentration in study area" },
+          { id: "hm6", filename: "Cadmium Distribution.jpg", caption: "Cadmium (Cd) spatial distribution across sampling points" },
+          { id: "hm7", filename: "Iron Distribution.jpg", caption: "Iron (Fe) concentration mapping in soil" },
+          { id: "hm8", filename: "Manganese Distribution.jpg", caption: "Manganese (Mn) spatial distribution in study area" },
+          { id: "hm9", filename: "Nickel Distribution.jpg", caption: "Nickel (Ni) concentration across sample locations" },
+          { id: "hm10", filename: "Mercury Distribution.jpg", caption: "Mercury (Hg) spatial distribution in soil and water" },
+          { id: "hm11", filename: "Vanadium Distribution.jpg", caption: "Vanadium (V) concentration mapping across study area" },
+          { id: "hm12", filename: "Titanium Distribution.jpg", caption: "Titanium (Ti) spatial distribution in soil" },
         ],
       },
       {
@@ -244,22 +250,71 @@ const stats = [
   { value: "3", label: "World Bank projects" },
   { value: "250+", label: "Students taught" },
 ];
-
 /* ─────────────────────── UTILITY COMPONENTS ─────────────────────── */
 
 function BrandMark({ light = false }: { light?: boolean }) {
+  const baseColor = light ? "#ffffff" : "#173e35";
+  const accentColor = "#cbf277";
+
   return (
-    <span
-      className={`relative grid h-9 w-9 shrink-0 place-items-center border ${
-        light ? "border-white/40 text-white" : "border-forest/30 text-forest"
-      }`}
-      aria-hidden="true"
-    >
-      <svg className="absolute inset-0 h-full w-full opacity-60" viewBox="0 0 36 36" fill="none">
-        <path d="M0 11.5H36M0 24H36M11.5 0V36M24 0V36" stroke="currentColor" strokeWidth=".55" />
-        <path d="M2 29C11 25 10 12 19 14C26 15 28 8 34 5" stroke="currentColor" strokeWidth="1.3" />
+    <span className="relative block h-10 w-10 shrink-0" aria-hidden="true">
+      <svg viewBox="0 0 100 100" className="h-full w-full" fill="none">
+        {/* Hexagon outer shell */}
+        <polygon
+          points="50,2 93,27 93,73 50,98 7,73 7,27"
+          fill={light ? "rgba(255,255,255,0.08)" : "rgba(23,62,53,0.08)"}
+          stroke={baseColor}
+          strokeWidth="2.5"
+          opacity="0.9"
+        />
+        {/* Inner hexagon */}
+        <polygon
+          points="50,15 80,33 80,67 50,85 20,67 20,33"
+          fill="none"
+          stroke={baseColor}
+          strokeWidth="1.2"
+          opacity="0.3"
+        />
+        {/* Accent hexagon ring */}
+        <polygon
+          points="50,22 74,37 74,63 50,78 26,63 26,37"
+          fill="none"
+          stroke={accentColor}
+          strokeWidth="1.5"
+          opacity="0.5"
+        />
+        {/* GIS contour-style decorative lines */}
+        <path
+          d="M25 45 Q38 35 50 42 Q62 49 75 40"
+          stroke={accentColor}
+          strokeWidth="1.2"
+          opacity="0.4"
+          fill="none"
+        />
+        <path
+          d="M25 55 Q38 48 50 55 Q62 62 75 53"
+          stroke={accentColor}
+          strokeWidth="1"
+          opacity="0.3"
+          fill="none"
+        />
+        {/* Map pin dot */}
+        <circle cx="50" cy="38" r="2.5" fill={accentColor} opacity="0.7" />
+        <line x1="50" y1="40.5" x2="50" y2="46" stroke={accentColor} strokeWidth="1" opacity="0.5" />
+        {/* YGC text */}
+        <text
+          x="50"
+          y="67"
+          textAnchor="middle"
+          fontFamily="'DM Mono', monospace"
+          fontSize="16"
+          fontWeight="700"
+          letterSpacing="2"
+          fill={baseColor}
+        >
+          YGC
+        </text>
       </svg>
-      <span className="relative font-mono text-[9px] font-bold tracking-tight">YGS</span>
     </span>
   );
 }
@@ -376,12 +431,6 @@ function HeroSection() {
           variants={{ hidden: {}, show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } } }}
           className="max-w-5xl"
         >
-          <motion.p
-            variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } }}
-            className="font-mono text-[10px] uppercase tracking-[0.3em] text-lime sm:text-xs"
-          >
-            Ghana · GIS mapping &amp; spatial analysis
-          </motion.p>
           <motion.h1
             variants={{ hidden: { opacity: 0, y: 36 }, show: { opacity: 1, y: 0 } }}
             className="mt-4 font-display text-[clamp(3.5rem,9vw,9.5rem)] leading-[.78] tracking-[-0.06em]"
